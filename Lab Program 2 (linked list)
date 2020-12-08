@@ -1,0 +1,246 @@
+#include<stdio.h> 
+#include<stdlib.h>
+#include<conio.h>
+#include<malloc.h>
+struct node 
+{
+  
+int info;
+   
+struct node *link;
+ 
+} *start;
+
+//This function will create a new linked list
+  void
+Create_List (int data) 
+{
+  
+struct node *q, *tmp;
+  
+//Dynamic memory is been allocated for a node
+    tmp = (struct node *) malloc (sizeof (struct node));
+  
+      tmp->info = data;
+  
+         tmp->link = NULL;
+  
+    if (start == NULL)      /*If list is empty */
+    
+        start = tmp;
+  
+  else
+    
+    {               /*Element inserted at the end */
+      
+q = start;
+      
+while (q->link != NULL)
+    
+q = q->link;
+      
+q->link = tmp;
+    
+}
+
+}               /*End of create_list() */
+
+//Delete any element from the linked list
+  void Del (int data) 
+{
+struct node *tmp, *q; 
+if (start->info == data){   
+tmp = start;
+start = start->link;    /*First element deleted */
+free (tmp);
+return;
+}
+  
+q = start;
+  
+while (q->link->link != NULL) {
+      
+if (q->link->info == data)  /*Element deleted in between */{
+      
+tmp = q->link;
+      
+q->link = tmp->link;
+      
+free (tmp);
+      
+return;
+    
+}
+      
+q = q->link;
+    
+}               /*End of while */
+  
+if (q->link->info == data)  /*Last element deleted */{
+      
+tmp = q->link;
+      
+free (tmp);
+      
+q->link = NULL;
+      
+return;
+    
+}
+  
+printf ("\n\nElement %d not found", data);
+  
+getch ();
+
+}               /*End of del() */
+
+//This function will display all the element(s) in the linked list
+  void Display () 
+{
+  
+struct node *q;
+  
+if (start == NULL){
+      
+printf ("\n\nList is empty");
+      
+return;
+    
+}
+  
+q = start;
+  
+printf ("\n\nList is : ");
+  
+while (q != NULL){
+      
+  printf ("%d --> ", q->info);
+       
+   q = q->link;
+    
+ 
+} 
+
+printf ("NULL");  
+printf ("\n");
+  
+getch ();
+
+}               /*End of display() */
+
+//Function to search an element from the linked list
+  void Search (int data) 
+{
+struct node *ptr = start;
+  
+int pos = 1;
+  
+//searching for an element in the linked list
+    while (ptr != NULL)   
+    {
+      
+if (ptr->info == data){
+      
+printf ("\nItem %d found at position %d \n", data, pos);
+      
+getch ();
+      
+return;
+    
+}
+      
+ptr = ptr->link;
+      
+pos++;
+    
+}
+  
+if (ptr == NULL)
+    
+printf ("\n\nItem %d not found in list", data);
+  
+getch ();
+
+}
+
+void main () 
+{
+  
+int choice, n, m, position, i;
+  
+start = NULL;
+  
+while (1){
+      
+printf ("1. Insert the element\n");
+      
+printf ("2. Delete the element\n");
+      
+printf ("3.Display the linked list\n");
+    
+      
+printf ("4.Search for an element \n");
+      
+printf ("5.Quit\n");
+      
+printf ("\nEnter your choice:");
+      
+scanf ("%d", &choice);
+      
+switch (choice){
+    
+case 1:
+printf ("\nEnter the element:");
+          
+scanf ("%d", &m);
+          
+Create_List (m);
+         
+break;
+    
+case 2:
+      
+if (start == NULL){
+          
+printf ("\n\nList is empty");
+          
+continue;
+        
+}
+      
+printf ("\n\nEnter the element for deletion:");
+      
+scanf ("%d", &m);
+      
+Del (m);
+    
+case 3:
+      
+Display ();
+      
+break;
+        
+case 4:
+      
+printf ("\n\nEnter the element to be searched:");
+      
+scanf ("%d", &m);
+      
+Search (m);
+      
+break;
+    
+case 5: 
+printf("See you next Time");
+      
+exit(0);
+    
+default:
+      
+printf ("\n\nWrong choice");
+    
+}           /*End of switch */
+    
+}               /*End of while */
+
+}
